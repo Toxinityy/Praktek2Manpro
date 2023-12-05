@@ -10,3 +10,6 @@ execute program ==> npm run start
 ============= 
 
 sql ==> download tugasmanpro.sql ==> masukin ke phpmyadmin
+
+1) buat database dengan nama `tugasmanpro`
+2) ke bagian "sql" copy paste query yang ada di file tugasmanpro.sql
