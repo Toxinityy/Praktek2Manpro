@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>permulaan</h1>
+    <h1>data from people table</h1>
+    <ul>
+      <% data.forEach(item => { %>
+      <li><%= item.ID %> & <%= item.Year_Birth %> & <%= item.Education %></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
