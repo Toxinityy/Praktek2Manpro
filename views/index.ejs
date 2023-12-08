@@ -6,12 +6,29 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>permulaan</h1>
-    <h1>data from people table</h1>
+    <h1>Home page</h1>
+    <!--<h1>Data from people table</h1>
     <ul>
       <% data.forEach(item => { %>
       <li><%= item.ID %> & <%= item.Year_Birth %> & <%= item.Education %></li>
       <% }) %>
-    </ul>
+    </ul>-->
+    <h1>Table Data</h1>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Year_Birth</th>
+      <th>Education</th>
+      <!-- Add more headers based on your database table columns -->
+    </tr>
+    <% data.forEach(item => { %>
+      <tr>
+        <td><%= item.ID %></td>
+        <td><%= item.Year_Birth %></td>
+        <td><%= item.Education %></td>
+        <!-- Add more columns based on your database table columns -->
+      </tr>
+    <% }); %>
+  </table>
   </body>
 </html>
