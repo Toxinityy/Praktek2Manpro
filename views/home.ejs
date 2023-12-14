@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SI Toko Retail</title>
+    <link href="../style.css" rel="stylesheet" />
+    <script src="../script.js" defer></script>
+  </head>
+  <body>
+    <h1>SI Toko Retail </h1>
+    <button class="button" id = "btnview">View data</button>
+    <button class="button" id = "btnadd">Add data</button>
+    <button class="button" id = "btngrph">Graph</button>
+
+
+  </body>
+</html>
+<script>
+  document.getElementById("btnadd").addEventListener("click", function() {
+    window.location.href = "/addData";
+  });
+  document.getElementById("btnview").addEventListener("click", function() {
+    window.location.href = "/viewData";
+  });
+  document.getElementById("btngrph").addEventListener("click", function() {
+    window.location.href = "/graph";
+  });
+</script>
