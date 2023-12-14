@@ -3,94 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link href="../home.css" rel="stylesheet" />
-    <script src="../script.js" defer></script>
+    <title>Home - SI Toko Retail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
+    <script src="https://kit.fontawesome.com/142154afcd.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
-  <body>
-    <h1>progress manpro</h1>
-    <button id="btnPeople">people table</button>
-    <div class="tabelPeople">
-      <h1>data from people table</h1>
-      <button id="addNewDataPeople">Add New Data</button>
-      <div class="formNewPeopleTable">
-        <form action="/postPeopleTable" method="post">
-          <label for="inputID">Input Id: </label>
-          <input type="number" name="IDPeople" />
-          <br />
-          <label for="inputYearBirth">Input Year Birth: </label>
-          <input type="number" name="YearBirthPeople" />
-          <br />
-          <label for="inputEducation">Input Education</label>
-          <select id="peopleEducation" name="peopleEducation">
-            <option value="Graduation">Graduation</option>
-            <option value="Master">Master</option>
-            <option value="PhD">PhD</option>
-            <option value="2n Cycle">2n Cycle</option>
-            <option value="Basic">Basic</option>
-          </select>
-          <br />
-          <label for="inputMaritalStatus">Input Marital_Status: </label>
-          <select id="peopleMaritalStatus" name="peopleMaritalStatus">
-            <option value="Absurd">Absurd</option>
-            <option value="Alone">Alone</option>
-            <option value="Divorced">Divorced</option>
-            <option value="Married">Married</option>
-            <option value="Single">Single</option>
-            <option value="Together">Together</option>
-            <option value="Widow">Widow</option>
-            <option value="YOLO">YOLO</option>
-          </select>
-          <br />
-          <label for="inputIncome">Input Income: </label>
-          <input type="number" name="incomePeople" />
-          <br />
-          <label for="inputKidHome">Input Kidhome: </label>
-          <input type="number" name="kidHomePeople" />
-          <br />
-          <label for="inputTeenHome">Input Teenhome: </label>
-          <input type="number" name="teenHomePeople" />
-          <br />
-          <label for="inputDtCust">Input Dt_cust</label>
-          <input type="date" name="dateCustPeople" />
-          <br />
-          <label for="inputRecency">Input Recency: </label>
-          <input type="number" name="recencyPeople" />
-          <br />
-          <label for="Complain">Input Complain</label>
-          <input type="number" name="complainPeople" />
-          <br />
-          <input type="submit" />
-        </form>
+
+  <body> 
+    <h1 class="mx-5 mt-5">Sistem Informasi Toko Retail</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-3 mx-5 my-5 p-5">
+      <div class="col" id="view-data">
+        <div class="card h-100 text-center">
+          <div class="card-body py-5">
+            <i class="fa-solid fa-database fa-8x"></i>
+            <h2 class="card-title mt-2">View Data</h2>
+          </div>
+        </div>
       </div>
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Year_Birth</th>
-          <th>Education</th>
-          <th>Marital_Status</th>
-          <th>Income</th>
-          <th>Kidhome</th>
-          <th>Teenhome</th>
-          <th>Dt_Customer</th>
-          <th>Recency</th>
-          <th>Complain</th>
-        </tr>
-        <% data.forEach(item => { %>
-        <tr>
-          <td><%= item.ID %></td>
-          <td><%= item.Year_Birth %></td>
-          <td><%= item.Education %></td>
-          <td><%= item.Marital_Status %></td>
-          <td><%= item.Income %></td>
-          <td><%= item.Kidhome %></td>
-          <td><%= item.Teenhome %></td>
-          <td><%= item.Dt_Customer %></td>
-          <td><%= item.Recency %></td>
-          <td><%= item.Complain %></td>
-        </tr>
-        <% }) %>
-      </table>
+      <div class="col" id="insert-data">
+        <div class="card h-100 text-center">
+          <div class="card-body py-5">
+            <i class="fa-solid fa-file-circle-plus fa-8x"></i>
+            <h2 class="card-title mt-2">Insert Data</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col" id="graph">
+        <div class="card h-100 text-center">
+          <div class="card-body py-5">
+            <i class="fa-solid fa-chart-simple fa-8x"></i>
+            <h2 class="card-title mt-2">Graph</h2>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
+
+  <script>
+    $(document).ready(function(){
+      $("#view-data").click(function(){
+        window.location.href = "/view-data";
+      });
+      $("#insert-data").click(function(){
+        window.location.href = "/add-data";
+      });
+      $("#graph").click(function(){
+        window.location.href = "/graph";
+      });
+    });
+  </script>
 </html>

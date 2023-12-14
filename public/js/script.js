@@ -8,5 +8,3 @@
 //     tablePeople.style.display = "block";
 //   }
 // });
-
-

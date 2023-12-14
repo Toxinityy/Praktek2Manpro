@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="../css/home.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <script src="../js/home.js" defer></script>
+  </head>
+  <body>
+    <%- include('./layout/navbar.ejs')%>
+    <h1>progress manpro</h1>
+    <button id="btnPeople">people table</button>
+    <div class="tabelPeople">
+      <h1>data from people table</h1>
+      <button id="addNewDataPeople">Add New Data</button>
+      <div class="formNewPeopleTable">
+        <form action="/postPeopleTable" method="post">
+          <label for="inputID">Input Id: </label>
+          <input type="number" name="IDPeople" />
+          <br />
+          <label for="inputYearBirth">Input Year Birth: </label>
+          <input type="number" name="YearBirthPeople" />
+          <br />
+          <label for="inputEducation">Input Education</label>
+          <select id="peopleEducation" name="peopleEducation">
+            <option value="Graduation">Graduation</option>
+            <option value="Master">Master</option>
+            <option value="PhD">PhD</option>
+            <option value="2n Cycle">2n Cycle</option>
+            <option value="Basic">Basic</option>
+          </select>
+          <br />
+          <label for="inputMaritalStatus">Input Marital_Status: </label>
+          <select id="peopleMaritalStatus" name="peopleMaritalStatus">
+            <option value="Absurd">Absurd</option>
+            <option value="Alone">Alone</option>
+            <option value="Divorced">Divorced</option>
+            <option value="Married">Married</option>
+            <option value="Single">Single</option>
+            <option value="Together">Together</option>
+            <option value="Widow">Widow</option>
+            <option value="YOLO">YOLO</option>
+          </select>
+          <br />
+          <label for="inputIncome">Input Income: </label>
+          <input type="number" name="incomePeople" />
+          <br />
+          <label for="inputKidHome">Input Kidhome: </label>
+          <input type="number" name="kidHomePeople" />
+          <br />
+          <label for="inputTeenHome">Input Teenhome: </label>
+          <input type="number" name="teenHomePeople" />
+          <br />
+          <label for="inputDtCust">Input Dt_cust</label>
+          <input type="date" name="dateCustPeople" />
+          <br />
+          <label for="inputRecency">Input Recency: </label>
+          <input type="number" name="recencyPeople" />
+          <br />
+          <label for="Complain">Input Complain</label>
+          <input type="number" name="complainPeople" />
+          <br />
+          <input type="submit" />
+        </form>
+      </div>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Year_Birth</th>
+          <th>Education</th>
+          <th>Marital_Status</th>
+          <th>Income</th>
+          <th>Kidhome</th>
+          <th>Teenhome</th>
+          <th>Dt_Customer</th>
+          <th>Recency</th>
+          <th>Complain</th>
+        </tr>
+        <% data.forEach(item => { %>
+        <tr>
+          <td><%= item.ID %></td>
+          <td><%= item.Year_Birth %></td>
+          <td><%= item.Education %></td>
+          <td><%= item.Marital_Status %></td>
+          <td><%= item.Income %></td>
+          <td><%= item.Kidhome %></td>
+          <td><%= item.Teenhome %></td>
+          <td><%= item.Dt_Customer %></td>
+          <td><%= item.Recency %></td>
+          <td><%= item.Complain %></td>
+        </tr>
+        <% }) %>
+      </table>
+    </div>
+  </body>
+</html>

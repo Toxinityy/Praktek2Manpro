@@ -14,19 +14,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set("view engine", "ejs");
 
-app.get("/viewData", async (req, res) => {
-  res.render("viewData");
-});
 app.get("/", async (req, res) => {
-  res.render("home");
+  res.render("index");
 });
-app.get("/addData", async (req, res) => {
+app.get("/add-data", async (req, res) => {
   // res.render('addData');
   const success = req.query.success === "true";
 
-  res.render("addData", { success });
+  res.render("add-data", { success });
 });
-
+app.get("/view-data", async (req, res) => {
+  res.render("view-data");
+});
+app.get("/graph", async (req, res) => {
+  res.render("graph");
+});
 app.post("/upload", upload.single("file_upload"), async (req, res) => {
   try {
     const csvFile = req.file;
@@ -86,9 +88,6 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
           const query = "INSERT INTO marketing_campaign SET ?";
           await conn.query(query, marketing_campaign);
 
-  
-
-
         } catch (error) {
           console.error(
             "Error importing data to Retail Marketing table:",
@@ -106,11 +105,11 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
         console.error("Error processing CSV data:", error);
         res.status(500).send("Internal Server Error");
       });
-  } catch (error) {
-    console.error("Error processing file upload:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+    } catch (error) {
+      console.error("Error processing file upload:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
