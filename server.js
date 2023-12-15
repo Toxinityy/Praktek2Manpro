@@ -49,11 +49,19 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
       .pipe(csvParser(parserConfig))
       .on("data", async (row) => {
         try {
-          // console.log('Processing row:', row);
+          // console.log('Printing row:', row);
+          let actualID;
+          for (const key in row) {
+            if (Object.prototype.hasOwnProperty.call(row, key) && key.trim() === 'ID') {
+              actualID = row[key];
+              break;
+            }
+          }
+          // console.log(actualID);
 
           const marketing_campaign = {
-            ID: row.ID,
-            Year_Birth: row.Year_Birth,
+            ID: actualID,
+            Year_Birth: row['Year_Birth'],
             Education: row.Education,
             Marital_Status: row.Marital_Status,
             Income: row.Income,
@@ -83,7 +91,7 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
             Response: row.Response,
           };
 
-          // console.log('Inserting data (ID):', marketing_campaign);
+          // console.log('Inserting data to database (ID):', marketing_campaign);
 
           const query = "INSERT INTO marketing_campaign SET ?";
           await conn.query(query, marketing_campaign);
@@ -99,7 +107,7 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
         conn.release();
         // Delete the temporary file after processing
         fs.unlinkSync(csvFile.path);
-        res.redirect("/addData?success=true");
+        res.redirect("/add-data?success=true");
       })
       .on("error", (error) => {
         console.error("Error processing CSV data:", error);
