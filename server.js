@@ -5,9 +5,9 @@ const csvParser = require("csv-parser");
 const pool = require("./db");
 const bodyParser = require("body-parser");
 const upload = multer({ dest: "uploads/" });
-
 const app = express();
 const port = 3000;
+const util = require ('util')
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,15 +17,41 @@ app.set("view engine", "ejs");
 app.get("/", async (req, res) => {
   res.render("index");
 });
+app.get("/view-data", async (req, res) => {
+  try {
+    // Fetch data from the database
+    const data = await fetchDataFromDatabase();
+
+    // Render the view-data template and pass the data
+    res.render("view-data", { data });
+  } catch (error) {
+    console.error("Error rendering view-data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.get("/add-data", async (req, res) => {
   // res.render('addData');
   const success = req.query.success === "true";
 
   res.render("add-data", { success });
 });
-app.get("/view-data", async (req, res) => {
-  res.render("view-data");
-});
+
+const query = util.promisify(pool.query).bind(pool);
+
+async function fetchDataFromDatabase() {
+  try {
+    // Execute the SQL query to select all rows from the marketing_campaign table
+    const [rows, fields] = await pool.query("SELECT * FROM marketing_campaign");
+
+    // rows will be an array of objects, each representing a row in the table
+    return rows;
+  } catch (error) {
+    console.error("Error fetching data from database:", error);
+    throw error; // Rethrow the error to be caught by the calling function
+  }
+}
+
 app.get("/graph", async (req, res) => {
   res.render("graph");
 });
@@ -52,7 +78,10 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
           // console.log('Printing row:', row);
           let actualID;
           for (const key in row) {
-            if (Object.prototype.hasOwnProperty.call(row, key) && key.trim() === 'ID') {
+            if (
+              Object.prototype.hasOwnProperty.call(row, key) &&
+              key.trim() === "ID"
+            ) {
               actualID = row[key];
               break;
             }
@@ -61,7 +90,7 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
 
           const marketing_campaign = {
             ID: actualID,
-            Year_Birth: row['Year_Birth'],
+            Year_Birth: row["Year_Birth"],
             Education: row.Education,
             Marital_Status: row.Marital_Status,
             Income: row.Income,
@@ -95,7 +124,6 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
 
           const query = "INSERT INTO marketing_campaign SET ?";
           await conn.query(query, marketing_campaign);
-
         } catch (error) {
           console.error(
             "Error importing data to Retail Marketing table:",
@@ -113,11 +141,11 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
         console.error("Error processing CSV data:", error);
         res.status(500).send("Internal Server Error");
       });
-    } catch (error) {
-      console.error("Error processing file upload:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  });
+  } catch (error) {
+    console.error("Error processing file upload:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
