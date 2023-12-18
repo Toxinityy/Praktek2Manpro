@@ -68,6 +68,11 @@
     div[class="d-flex justify-content-center"] {
       flex-direction: column;
     }
+    #file-upload-label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    }
 
     label[for="file"]{
       color: black;
@@ -84,14 +89,22 @@
     <form id="file" method="POST" action="/upload" enctype="multipart/form-data" class="dropzone">
       <div id="text" class="d-flex justify-content-center">
         <label for="file">Drop CSV File Here!</label>
+        <label for="file_upload" id="file-upload-label">Click here to browse</label>
         <input type="file" name="file_upload" id="file_upload" required>
       </div>
       <button name="upload" type="submit" id="upload">Upload</button>
     </form>
 
     <ul id="file-list"></ul>
-
   </body>
+  <script>
+    function displayFileName() {
+      var fileInput = document.getElementById('file_upload');
+      var fileName = document.getElementById('file-upload-label');
+
+      fileName.textContent = fileInput.files[0] ? fileInput.files[0].name : 'Click here to browse';
+    }
+  </script>
 </html>
 <!-- addData.ejs -->
 <% if (success) { %>
