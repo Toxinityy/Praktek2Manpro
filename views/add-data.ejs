@@ -90,7 +90,7 @@
       <div id="text" class="d-flex justify-content-center">
         <label for="file">Drop CSV File Here!</label>
         <label for="file_upload" id="file-upload-label">Click here to browse</label>
-        <input type="file" name="file_upload" id="file_upload" required>
+        <input type="file" name="file_upload" id="file_upload" required onchange="displayFileName()">
       </div>
       <button name="upload" type="submit" id="upload">Upload</button>
     </form>
