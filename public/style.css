@@ -1,0 +1,15 @@
+.tabelPeople {
+  display: none;
+}
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+#file-list {
+  margin-top: 20px;
+}
