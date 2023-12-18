@@ -7,15 +7,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../public/css/index.css" type="text/css">
     <script src="../js/script.js" defer></script>
     <script src="https://kit.fontawesome.com/142154afcd.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
+  <style>
+    html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  body {
+    background: linear-gradient(
+      to bottom,
+      #fff9e3 0%,
+      #fff9e3 50%,
+      #fff0bc 50%,
+      #fff0bc 100%
+    );
+  }
 
+  h1{
+    font-family:Poppins; 
+    color: #ef3d3d;
+    font-weight: 900;
+    font-size: 50px;
+    display: flex;
+    left: 10%;
+    top: 5%;
+    position: relative;
+  }
+  div[class="col"]{
+    margin-left: 75px;
+    height: 300px;
+    width: 300px;
+    border: none;
+  }
+  div[class="row row-cols-1 row-cols-md-3 g-3 mx-5 my-5 p-5"]{
+    left: 5%;
+    position: relative;
+  }
+  </style>
   <body> 
-    <h1 class="mx-5 mt-5">Sistem Informasi Toko Retail</h1>
+    <h1 class="mx-5 mt-5">SI Toko Retail</h1>
     <div class="row row-cols-1 row-cols-md-3 g-3 mx-5 my-5 p-5">
       <div class="col" id="view-data">
         <div class="card h-100 text-center">
