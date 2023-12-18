@@ -12,6 +12,7 @@ const util = require ('util')
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
 app.set("view engine", "ejs");
 
 app.get("/", async (req, res) => {
