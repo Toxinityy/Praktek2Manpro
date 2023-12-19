@@ -5,9 +5,12 @@ const csvParser = require("csv-parser");
 const pool = require("./db");
 const bodyParser = require("body-parser");
 const upload = multer({ dest: "uploads/" });
+const util = require('util');
 const app = express();
 const port = 3000;
-const util = require ('util')
+const query = util.promisify(pool.query).bind(pool);
+
+
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,18 +21,6 @@ app.set("view engine", "ejs");
 app.get("/", async (req, res) => {
   res.render("index");
 });
-app.get("/view-data", async (req, res) => {
-  try {
-    // Fetch data from the database
-    const data = await fetchDataFromDatabase();
-
-    // Render the view-data template and pass the data
-    res.render("view-data", { data });
-  } catch (error) {
-    console.error("Error rendering view-data:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 app.get("/add-data", async (req, res) => {
   // res.render('addData');
@@ -37,21 +28,6 @@ app.get("/add-data", async (req, res) => {
 
   res.render("add-data", { success });
 });
-
-const query = util.promisify(pool.query).bind(pool);
-
-async function fetchDataFromDatabase() {
-  try {
-    // Execute the SQL query to select all rows from the marketing_campaign table
-    const [rows, fields] = await pool.query("SELECT * FROM marketing_campaign");
-
-    // rows will be an array of objects, each representing a row in the table
-    return rows;
-  } catch (error) {
-    console.error("Error fetching data from database:", error);
-    throw error; // Rethrow the error to be caught by the calling function
-  }
-}
 
 app.get("/graph", async (req, res) => {
   res.render("graph");
@@ -148,47 +124,50 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
   }
 });
 
+//saat "See Report" di klik
+app.get("/see_report", (req, res) => {
+  res.render("see_report");
+});
+
+const getReport = (conn, agregat, kelompok, kolom) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT ${kelompok} AS Kelompok, ${agregat}(${kolom}) AS Hasil FROM marketing_campaign GROUP BY ${kelompok}`, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+const dbConnect = () => {
+  return new Promise((resolve, reject) => {
+      pool.getConnection((err, conn) => {
+          if(err){
+              reject (err);
+          }
+          else{
+              resolve(conn);
+          }
+      }
+      )
+  })
+};
+
+app.post("/searched_report", async (req, res) => {
+  const conn = await dbConnect();
+  const { kelompok, agregat, kolom } = req.body;
+  const hasil = await getReport(conn, agregat, kelompok, kolom);
+  res.render("searched_report", {
+    kelompok: kelompok,
+    agregat: agregat,
+    kolom: kolom,
+    rows: hasil,
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-// app.post("/postPeopleTable", async (req, res) => {
-//   try {
-//     // Extract data from the form
-//     const {
-//       IDPeople,
-//       YearBirthPeople,
-//       peopleEducation,
-//       peopleMaritalStatus,
-//       incomePeople,
-//       kidHomePeople,
-//       teenHomePeople,
-//       dateCustPeople,
-//       recencyPeople,
-//       complainPeople,
-//     } = req.body;
-
-//     // Insert data into the database
-//     await pool.execute(
-//       "INSERT INTO people (ID, Year_Birth, Education, Marital_Status, Income, Kidhome, Teenhome, Dt_Customer, Recency, Complain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-//       [
-//         IDPeople,
-//         YearBirthPeople,
-//         peopleEducation,
-//         peopleMaritalStatus,
-//         incomePeople,
-//         kidHomePeople,
-//         teenHomePeople,
-//         dateCustPeople,
-//         recencyPeople,
-//         complainPeople,
-//       ]
-//     );
-
-//     // Redirect to the home page after successful submission
-//     res.redirect("/");
-//   } catch (error) {
-//     console.log("Error executing query: ", error);
-//     res.status(500).send("Internal server error");
-//   }
-// });

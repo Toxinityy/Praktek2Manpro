@@ -2,11 +2,11 @@
 <html>
   <head>
     <title>RETAILDASH_SEE_REPORT</title>
-    <link rel="stylesheet" type="text/css" href="/css/see_report.css" />
+    <link rel="stylesheet" type="text/css" href="/css/searched_report.css" />
   </head>
 
   <body>
-    <%- include('./layout/header.ejs') %>
+    <%- include('./layout/navbar.ejs') %>
     <main>
       <section>
         <h2>Data Summary</h2>
@@ -54,6 +54,23 @@
             </select>
             <input type="submit" id="searchButton" value="Search" />
           </form>
+        </div>
+        <h3><%- agregat %> <%- kolom %> Group By <%- kelompok %></h3>
+        <div class="summary-container-wrapper">
+          <div class="summary-container">
+            <table>
+              <tr>
+                <th><%- kelompok %></td>
+                <th><%- agregat %> <%- kolom %></td>
+              </tr>
+              <% for(let row of rows){ %>
+              <tr>
+                <td><%- row.Kelompok %></td>
+                <td><%- row.Hasil %></td>
+              </tr>
+              <% } %>
+            </table>
+          </div>
         </div>
       </section>
     </main>
