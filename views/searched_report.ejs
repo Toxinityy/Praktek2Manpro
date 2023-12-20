@@ -17,12 +17,25 @@
   <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 <style>
+  table.dataTable thead .sorting:after,
+  table.dataTable thead .sorting:before,
+  table.dataTable thead .sorting_asc:after,
+  table.dataTable thead .sorting_asc:before,
+  table.dataTable thead .sorting_asc_disabled:after,
+  table.dataTable thead .sorting_asc_disabled:before,
+  table.dataTable thead .sorting_desc:after,
+  table.dataTable thead .sorting_desc:before,
+  table.dataTable thead .sorting_desc_disabled:after,
+  table.dataTable thead .sorting_desc_disabled:before {
+  bottom: .5em;
+  }
   body {
     background-color: #fff9e3;
+    overflow-x: hidden;
   }
   section{
     position: relative;
-    top: 50px;
+    top: 25px;
     left: 50px;
   }
   form{
@@ -43,8 +56,10 @@
     margin-left: 10px;
   }
   section[class="table"]{
-    margin-top: 50px;
-    width: 500px;
+    margin-top: 40px;
+    margin-left: 10px;
+    width: 800px;
+    height: 400px;
   }
   
 </style>
@@ -105,16 +120,16 @@
       <h3><%- agregat %> <%- kolom %> Group By <%- kelompok %></h3>
         <div class="summary-container-wrapper">
           <div class="summary-container" style="overflow-x:auto;">
-            <table class="table table-bordered">
-              <tr>
+            <table class="table table-bordered" id="dtVerticalScrollExample">
+              <thead></tr>
                 <th><%- kelompok %></td>
                 <th><%- agregat %> <%- kolom %></td>
-              </tr>
+              </thead>
               <% for(let row of rows){ %>
-              <tr>
+              <tbody>
                 <td><%- row.Kelompok %></td>
                 <td><%- row.Hasil %></td>
-              </tr>
+              </tbody>
               <% } %>
             </table>
           </div>
@@ -122,4 +137,18 @@
       </section>
     </main>
   </body>
+  <script>
+    $(document).ready(function () {
+      $('#dtVerticalScrollExample').DataTable({
+        "scrollY": "250px",
+        "scrollCollapse": true,
+        "lengthChange": false, // Disable the "Show entries" dropdown
+        "searching": false,    // Disable the search feature
+        "pageLength": -1, // Display all entries on one page
+        "paging": false, // Disable pagination
+        "info": false, // Disable the information text
+      });
+      $('.dataTables_length').addClass('bs-select');
+    });
+  </script> 
 </html>
