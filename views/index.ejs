@@ -50,6 +50,11 @@
     position: relative;
     left: 5%;
   }
+
+  /* Hover effect for the .col elements */
+  .col:hover {
+    transform: scale(1.1); /* Change the scale factor as needed */
+  }
   </style>
   <body> 
     <h1 class="mx-5 mt-5">SI Toko Retail</h1>
@@ -70,11 +75,19 @@
           </div>
         </div>
       </div>
-      <div class="col" id="graph">
+      <div class="col" id="bar-chart">
         <div class="card h-100 text-center">
           <div class="card-body py-5">
             <i class="fa-solid fa-chart-simple fa-8x"></i>
-            <h2 class="card-title mt-2">Graph</h2>
+            <h2 class="card-title mt-2">Bar Chart</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col" id="scatter-plot">
+        <div class="card h-100 text-center">
+          <div class="card-body py-5">
+            <i class="fa-solid fa-chart-simple fa-8x"></i>
+            <h2 class="card-title mt-2">scatter Plot</h2>
           </div>
         </div>
       </div>
@@ -95,8 +108,11 @@
       $("#insert-data").click(function(){
         window.location.href = "/add-data";
       });
-      $("#graph").click(function(){
-        window.location.href = "/graph";
+      $("#bar-chart").click(function(){
+        window.location.href = "/bar-chart";
+      });
+      $("#scatter-plot").click(function(){
+        window.location.href = "/scatter-plot";
       });
     });
   </script>

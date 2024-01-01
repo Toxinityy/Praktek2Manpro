@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Praktek 2 - Manpro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script src="../js/script.js" defer></script>
+  <script src="https://kit.fontawesome.com/142154afcd.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+  table.dataTable thead .sorting:after,
+  table.dataTable thead .sorting:before,
+  table.dataTable thead .sorting_asc:after,
+  table.dataTable thead .sorting_asc:before,
+  table.dataTable thead .sorting_asc_disabled:after,
+  table.dataTable thead .sorting_asc_disabled:before,
+  table.dataTable thead .sorting_desc:after,
+  table.dataTable thead .sorting_desc:before,
+  table.dataTable thead .sorting_desc_disabled:after,
+  table.dataTable thead .sorting_desc_disabled:before {
+  bottom: .5em;
+  }
+  body {
+    background-color: #fff9e3;
+    overflow-x: hidden;
+  }
+  section{
+    position: relative;
+    top: 25px;
+    left: 50px;
+  }
+  form{
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+  }
+  label{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  div[class="dropdown-section"]{
+    position: relative;
+    top: 20px;
+  }
+  input[type="submit"]{
+    position: relative;
+    margin-left: 10px;
+  }
+  section[class="table"]{
+    margin-top: 40px;
+    margin-left: 10px;
+    width: 800px;
+    height: 400px;
+  }
+  
+</style>
+
+  <body>
+    <%- include('navbar', { currentPage: 'bar-chart' }) %>
+
+    <main>
+      <section class="search-section">
+        <h2>Bar Chart</h2>
+        <div class="dropdown-section">
+          <form method="post" action="/get-bar-chart">
+            <label for="kelompok">Kelompok:</label>
+            <select id="kelompok" name="kelompok">
+              <option value="Year_Birth">Year Birth</option>
+              <option value="Education">Education</option>
+              <option value="Marital_Status">Marital Status</option>
+              <option value="Kidhome">Kidhome</option>
+              <option value="Teenhome">Teenhome</option>
+              <option value="Complain">Complain</option>
+              <option value="AcceptedCmp1">Accepted in 1st Campaign</option>
+              <option value="AcceptedCmp2">Accepted in 2nd Campaign</option>
+              <option value="AcceptedCmp3">Accepted in 3rd Campaign</option>
+              <option value="AcceptedCmp4">Accepted in 4th Campaign</option>
+              <option value="AcceptedCmp5">Accepted in 5th Campaign</option>
+              <option value="Response">Response</option>
+            </select>
+
+            <label for="agregat">Agregat:</label>
+            <select id="agregat" name="agregat">
+              <option value="Sum">Sum</option>
+              <option value="Avg">Average</option>
+              <option value="Count">Count</option>
+              <option value="Min">Min</option>
+              <option value="Max">Max</option>
+            </select>
+            <label for="kolom">Kolom:</label>
+            <select id="kolom" name="kolom">
+              <option value="Income">Income</option>
+              <option value="Recency">Recency</option>
+              <option value="MntWines">Amount spent on wine</option>
+              <option value="MntFruits">Amount spent on fruits</option>
+              <option value="MntMeatProducts">Amount spent on meat</option>
+              <option value="MntFishProducts">Amount spent on fish</option>
+              <option value="MntSweetProducts">Amount spent on sweets</option>
+              <option value="MntGoldProds">Amount spent on gold</option>
+              <option value="NumDealsPurchases">Number of purchases with discount</option>
+              <option value="NumWebPurchases">Number of purchases made through company's web</option>
+              <option value="NumCatalogPurchases">Number of purchases made using catalog</option>
+              <option value="NumStorePurchases">Number of purchases made directly in store</option>
+              <option value="NumWebVisitsMonth">Number of visits to company's web in the last month</option>
+            </select>
+            <input type="submit" id="searchButton" value="Search" />
+          </form>
+        </div>
+      </section>
+      <section class="table">
+      <h3><%- agregat %> <%- kolom %> Group By <%- kelompok %></h3>
+      <canvas id="barChart" width="400" height="200"></canvas>
+
+        <div class="summary-container-wrapper">
+          <div class="summary-container" style="overflow-x:auto; display: none;" >
+            <table class="table table-bordered" id="dtVerticalScrollExample">
+              <thead>
+                <th><%- kelompok %></td>
+                <th><%- agregat %> <%- kolom %></td>
+              </thead>
+              <% for(let row of rows){ %>
+              <tbody>
+                <td><%- row.Kelompok %></td>
+                <td><%- row.Hasil %></td>
+              </tbody>
+              <% } %>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </body>
+  <script>
+    $(document).ready(function () {
+      $('#dtVerticalScrollExample').DataTable({
+        "scrollY": "250px",
+        "scrollCollapse": true,
+        "lengthChange": false, // Disable the "Show entries" dropdown
+        "searching": false,    // Disable the search feature
+        "pageLength": -1, // Display all entries on one page
+        "paging": false, // Disable pagination
+        "info": false, // Disable the information text
+      });
+      $('.dataTables_length').addClass('bs-select');
+    });
+
+    // Retrieve data from the table
+  var table = document.getElementById('dtVerticalScrollExample');
+  var categories = [];
+  var values = [];
+
+  for (var i = 1; i < table.rows.length; i++) {
+    var row = table.rows[i];
+    categories.push(row.cells[0].textContent);
+    values.push(parseFloat(row.cells[1].textContent));
+  }
+
+  const kolom = '<%= kolom %>';
+
+  // Configure and create the bar chart
+  var ctx = document.getElementById('barChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: categories,
+      datasets: [{
+        label: kolom ,
+        data: values,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  </script> 
+</html>

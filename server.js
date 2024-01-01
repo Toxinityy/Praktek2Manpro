@@ -29,8 +29,8 @@ app.get("/add-data", async (req, res) => {
   res.render("add-data", { success });
 });
 
-app.get("/graph", async (req, res) => {
-  res.render("graph");
+app.get("/bar-chart", async (req, res) => {
+  res.render("bar-chart");
 });
 app.post("/upload", upload.single("file_upload"), async (req, res) => {
   try {
@@ -128,6 +128,10 @@ app.post("/upload", upload.single("file_upload"), async (req, res) => {
 app.get("/see_report", (req, res) => {
   res.render("see_report");
 });
+app.get("/scatter-plot", (req, res) => {
+  res.render("scatter-plot");
+});
+
 
 const getReport = (conn, agregat, kelompok, kolom) => {
   return new Promise((resolve, reject) => {
@@ -165,7 +169,28 @@ app.post("/searched_report", async (req, res) => {
     rows: hasil,
   });
 });
-
+app.post("/get-bar-chart", async (req, res) => {
+  const conn = await dbConnect();
+  const { kelompok, agregat, kolom } = req.body;
+  const hasil = await getReport(conn, agregat, kelompok, kolom);
+  res.render("get-bar-chart", {
+    kelompok: kelompok,
+    agregat: agregat,
+    kolom: kolom,
+    rows: hasil,
+  });
+});
+app.post("/get-scatter-plot", async (req, res) => {
+  const conn = await dbConnect();
+  const { kelompok, agregat, kolom } = req.body;
+  const hasil = await getReport(conn, agregat, kelompok, kolom);
+  res.render("get-scatter-plot", {
+    kelompok: kelompok,
+    agregat: agregat,
+    kolom: kolom,
+    rows: hasil,
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
