@@ -41,18 +41,23 @@
     position: relative;
   }
   div[class="col"]{
-    margin-left: 70px;
-    height: 210px;
-    width: 210px;
-    border: none;
+    margin-left: 5%;
+    height: 260px;
+    width: 260px;
+  }
+  div[class="card h-100 text-center"]{
+    position: relative;
+    border-radius: 30px;
+    justify-content: center;
   }
   div[class="row row-cols-1 row-cols-md-3 g-3 mx-5 my-5 p-5"]{
     position: relative;
     top: 2.5%;
   }
 
+  /* Hover effect for the .col elements */
   .col:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Change the scale factor as needed */
   }
   </style>
   <body> 
@@ -61,32 +66,32 @@
       <div class="col" id="view-data">
         <div class="card h-100 text-center">
           <div class="card-body py-5">
-            <i class="fa-solid fa-database fa-5x"></i>
-            <h3 class="card-title mt-2">View Data</h3>
+            <i class="fa-solid fa-database fa-8x"></i>
+            <h2 class="card-title mt-2">View Data</h2>
           </div>
         </div>
       </div>
       <div class="col" id="insert-data">
         <div class="card h-100 text-center">
           <div class="card-body py-5">
-            <i class="fa-solid fa-file-circle-plus fa-5x"></i>
-            <h3 class="card-title mt-2">Insert Data</h3>
+            <i class="fa-solid fa-file-circle-plus fa-8x"></i>
+            <h2 class="card-title mt-2">Insert Data</h2>
           </div>
         </div>
       </div>
       <div class="col" id="bar-chart">
         <div class="card h-100 text-center">
           <div class="card-body py-5">
-            <i class="fa-solid fa-chart-simple fa-5x"></i>
-            <h3 class="card-title mt-2">Bar Chart</h3>
+            <i class="fa-solid fa-chart-simple fa-8x"></i>
+            <h2 class="card-title mt-2">Bar Chart</h2>
           </div>
         </div>
       </div>
       <div class="col" id="scatter-plot">
         <div class="card h-100 text-center">
           <div class="card-body py-5">
-            <i class="fa-solid fa-chart-simple fa-5x"></i>
-            <h3 class="card-title mt-2">Scatter Plot</h3>
+            <i class="fa-solid fa-chart-simple fa-8x"></i>
+            <h2 class="card-title mt-2">Scatter Plot</h2>
           </div>
         </div>
       </div>
