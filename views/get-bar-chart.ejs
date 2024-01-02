@@ -146,16 +146,15 @@
       $('#dtVerticalScrollExample').DataTable({
         "scrollY": "250px",
         "scrollCollapse": true,
-        "lengthChange": false, // Disable the "Show entries" dropdown
-        "searching": false,    // Disable the search feature
-        "pageLength": -1, // Display all entries on one page
-        "paging": false, // Disable pagination
-        "info": false, // Disable the information text
+        "lengthChange": false,
+        "searching": false, 
+        "pageLength": -1,
+        "paging": false,
+        "info": false,
       });
       $('.dataTables_length').addClass('bs-select');
     });
 
-    // Retrieve data from the table
   var table = document.getElementById('dtVerticalScrollExample');
   var categories = [];
   var values = [];
@@ -168,7 +167,6 @@
 
   const kolom = '<%= kolom %>';
 
-  // Configure and create the bar chart
   var ctx = document.getElementById('barChart').getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bar',
