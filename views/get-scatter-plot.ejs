@@ -121,7 +121,7 @@
       </section>
       <section class="table">
       <h3><%- agregat %> <%- kolom %> Group By <%- kelompok %></h3>
-      <canvas id="scatterChart" width="400" height="400"></canvas>
+      <canvas id="scatterChart" width="1000" height="1000"></canvas>
 
         <div class="summary-container-wrapper">
           <div class="summary-container" style="overflow-x:auto; display: none;" >
@@ -148,16 +148,16 @@
       $('#dtVerticalScrollExample').DataTable({
         "scrollY": "250px",
         "scrollCollapse": true,
-        "lengthChange": false, // Disable the "Show entries" dropdown
-        "searching": false,    // Disable the search feature
-        "pageLength": -1, // Display all entries on one page
-        "paging": false, // Disable pagination
-        "info": false, // Disable the information text
+        "lengthChange": false,
+        "searching": false,
+        "pageLength": -1, 
+        "paging": false, 
+        "info": false, 
       });
       $('.dataTables_length').addClass('bs-select');
     });
 
-   // Get data from the table
+  
   var table = document.getElementById('dtVerticalScrollExample');
   var dataPoints = [];
 
@@ -169,7 +169,6 @@
     dataPoints.push({ x: x, y: y });
   }
   const kolom = '<%= kolom %>';
-  // Configure and create the scatter plot
   var ctx = document.getElementById('scatterChart').getContext('2d');
   var scatterChart = new Chart(ctx, {
     type: 'scatter',
