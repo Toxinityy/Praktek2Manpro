@@ -16,8 +16,10 @@
   <style>
     html, body {
     height: 100%;
+    width: 100%;
     margin: 0;
     overflow: hidden;
+    
   }
   
   body {
@@ -28,6 +30,7 @@
       #fff0bc 50%,
       #fff0bc 100%
     );
+    position: fixed;
   }
 
   h1{
@@ -38,12 +41,31 @@
     display: flex;
     left: 5%;
     top: 5%;
-    position: relative;
+    position: fixed;
   }
   div[class="col"]{
-    margin-left: 5%;
-    height: 260px;
-    width: 260px;
+    height: 230px;
+    width: 230px;
+  }
+  div[id="view-data"]{
+    left: 200px;
+    top: 225px;
+    position:fixed;
+  }
+  div[id="insert-data"]{
+    left: 500px;
+    top: 225px;
+    position:fixed;
+  }
+  div[id="bar-chart"]{
+    left: 800px;
+    top: 225px;
+    position:fixed;
+  }
+  div[id="scatter-plot"]{
+    left: 1100px;
+    top: 225px;
+    position:fixed;
   }
   div[class="card h-100 text-center"]{
     position: relative;
@@ -56,7 +78,7 @@
   }
   div[class="row row-cols-1 row-cols-md-3 g-3 mx-5 my-5 p-5"]{
     position: relative;
-    top: 2.5%;
+    top: 5%;
   }
 
   .col:hover {
